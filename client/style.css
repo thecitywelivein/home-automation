@@ -1,0 +1,13 @@
+body {
+  background: url('https://blackrockdigital.github.io/startbootstrap-grayscale/img/intro-bg.jpg') no-repeat #000;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+
+.title {
+  text-transform: uppercase;
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 65px;
+  margin-top: 25vw;
+}

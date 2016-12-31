@@ -1,0 +1,8 @@
+.DS_Store
+userKeys.js
+
+node_modules/
+server/lib/sonos/static/tts/
+server/lib/sonos/presets/
+server/lib/sonos/cache/
+server/cache/
