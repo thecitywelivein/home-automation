@@ -51,7 +51,7 @@ app.post('/api/github', function (req, res) {
     if (error) return logger.warn(error)
     logger.info(stdout)
   }
-  exec('git pull && rs', puts)
+  exec('git pull && npm install && rs', puts)
 
   logger.info('Payload Received from Github')
   res.send('Thanks Github!')
