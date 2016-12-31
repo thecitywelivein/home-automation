@@ -6,13 +6,13 @@ const path = require('path')
 
 // Sonos
 const SonosSystem = require('sonos-discovery')
-const SonosHttpAPI = require('./lib/sonos/sonos-http-api')
-const settings = require('./sonosSettings')
+const SonosHttpAPI = require('./lib/sonos/sonos-http-api.js')
+const settings = require('./sonosSettings.js')
 const discovery = new SonosSystem(settings)
 const api = new SonosHttpAPI(discovery, settings)
 
 // Wink
-const Lights = require('./lights')
+const Lights = require('./lights.js')
 
 app.use(bodyParser.json())
 
