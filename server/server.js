@@ -41,6 +41,19 @@ app.get('/tts/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'lib/sonos/static/', req.url))
 })
 
+// Github Webhook
+app.post('/api/github', function (req, res) {
+  const exec = require('child_process').exec
+
+  function puts (error, stdout, stderr) {
+    if (error) return console.error(error)
+    console.log(stdout)
+  }
+  exec('git pull && rs', puts)
+
+  res.send('Thanks Github!')
+})
+
 // Wildcard Files
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '/../', req.url))
