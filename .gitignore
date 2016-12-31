@@ -1,6 +1,7 @@
 .DS_Store
 userKeys.js
 
+log/
 node_modules/
 server/lib/sonos/static/tts/
 server/lib/sonos/presets/

@@ -1,11 +1,14 @@
 'use strict'
+const path = require('path')
 const logger = require('sonos-discovery/lib/helpers/logger')
+const winston = require(path.resolve('server/logger'))
 
 function addToGroup (player, values) {
   const joiningRoomName = decodeURIComponent(values[0])
   const joiningPlayer = player.system.getPlayer(joiningRoomName)
   if (!joiningPlayer) {
     logger.warn(`Room ${joiningRoomName} not found - can't group with ${player.roomName}`)
+    winston.warn(`Room ${joiningRoomName} not found - can't group with ${player.roomName}`)
     return
   }
   return attachTo(joiningPlayer, player.coordinator)
@@ -16,6 +19,7 @@ function joinPlayer (player, values) {
   const receivingPlayer = player.system.getPlayer(receivingRoomName)
   if (!receivingPlayer) {
     logger.warn(`Room ${receivingRoomName} not found - can't make ${player.roomName} join it`)
+    winston.warn(`Room ${receivingRoomName} not found - can't make ${player.roomName} join it`)
     return
   }
   return attachTo(player, receivingPlayer.coordinator)
@@ -26,6 +30,7 @@ function removeFromGroup (player, values) {
   var leavingPlayer = player.system.getPlayer(leavingRoomName)
   if (!leavingPlayer) {
     logger.warn(`Room ${leavingRoomName} not found - can't remove from group of ${player.roomName}`)
+    winston.warn(`Room ${leavingRoomName} not found - can't remove from group of ${player.roomName}`)
     return
   }
   return isolate(leavingPlayer)

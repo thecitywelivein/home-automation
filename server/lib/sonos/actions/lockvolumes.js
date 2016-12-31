@@ -1,8 +1,11 @@
 'use strict'
+const path = require('path')
+const winston = require(path.resolve('server/logger'))
 var lockVolumes = {}
 
 function lockvolumes (player) {
   console.log('locking volumes')
+  winston.info('locking volumes')
   // Locate all volumes
   var system = player.system
 
@@ -18,6 +21,7 @@ function lockvolumes (player) {
 
 function unlockvolumes (player) {
   console.log('unlocking volumes')
+  winston.info('unlocking volumes')
   var system = player.system
   system.removeListener('volume', restrictVolume)
   return Promise.resolve()
@@ -25,6 +29,7 @@ function unlockvolumes (player) {
 
 function restrictVolume (info) {
   console.log('should revert volume to', lockVolumes[info.uuid])
+  winston.info('should revert volume to', lockVolumes[info.uuid])
   var player = this.getPlayerByUUID(info.uuid)
   // Only do this if volume differs
   if (player.state.volume != lockVolumes[info.uuid]) {

@@ -18,7 +18,8 @@
     "q": "^1.4.1",
     "request-promise": "^4.1.1",
     "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/v1.2.5.tar.gz",
-    "unirest": "^0.5.1"
+    "unirest": "^0.5.1",
+    "winston": "^2.3.0"
   },
   "engines": {
     "node": "6.9.x"

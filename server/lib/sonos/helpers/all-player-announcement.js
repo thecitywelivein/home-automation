@@ -1,6 +1,8 @@
 'use strict'
 const logger = require('sonos-discovery/lib/helpers/logger')
 const isRadioOrLineIn = require('../helpers/is-radio-or-line-in')
+const path = require('path')
+const winston = require(path.resolve('server/logger'))
 let onOneBigGroup
 let globalListenerRegistered = false
 
@@ -105,6 +107,7 @@ function announceAll (system, uri, volume) {
 
     if (afterPlayingStateChange instanceof Function) {
       logger.debug('announcement finished')
+      winston.info('announcement finished')
       afterPlayingStateChange()
     }
   }

@@ -3,6 +3,7 @@ const requireDir = require('./helpers/require-dir')
 const path = require('path')
 const request = require('sonos-discovery/lib/helpers/request')
 const logger = require('sonos-discovery/lib/helpers/logger')
+const winston = require(path.resolve('server/logger'))
 
 function HttpAPI (discovery, settings) {
   const port = settings.port
@@ -54,6 +55,7 @@ function HttpAPI (discovery, settings) {
     if (discovery.zones.length === 0) {
       const msg = 'No system has yet been discovered. Please see https://github.com/jishi/node-sonos-http-api/issues/77 if it doesn\'t resolve itself in a few seconds.'
       logger.error(msg)
+      winston.warn(msg)
       sendResponse(500, {
         status: 'error',
         error: msg
@@ -101,6 +103,7 @@ function HttpAPI (discovery, settings) {
         sendResponse(200, response)
       }).catch((error) => {
         logger.error(error)
+        winston.warn(error)
         sendResponse(500, {
           status: 'error',
           error: error.message,
@@ -143,6 +146,8 @@ function HttpAPI (discovery, settings) {
       .catch(function (err) {
         logger.error('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.')
         logger.error(err)
+        winston.warn('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.')
+        winston.warn(err)
       })
   }
 }

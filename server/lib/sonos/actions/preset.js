@@ -3,6 +3,7 @@ const fs = require('fs')
 const util = require('util')
 const logger = require('sonos-discovery/lib/helpers/logger')
 const path = require('path')
+const winston = require(path.resolve('server/logger'))
 const settings = require(path.resolve('server/sonosSettings'))
 // const presetsFilename = __dirname + '/../../presets.json';
 const presets = settings.presets
@@ -33,6 +34,8 @@ function readPresetsFromDir (presets, presetPath) {
   } catch (e) {
     logger.warn(`Could not find dir ${presetPath}, are you sure it exists?`)
     logger.warn(e.message)
+    winston.warn(`Could not find dir ${presetPath}, are you sure it exists?`)
+    winston.warn(e.message)
     return
   }
 
@@ -51,6 +54,7 @@ function readPresetsFromDir (presets, presetPath) {
       presets[presetName] = JSON.parse(fs.readFileSync(file.fullPath))
     } catch (err) {
       logger.warn(`could not parse preset file ${file.name} ("${err.message}"), please validate it with a JSON parser.`)
+      winston.warn(`could not parse preset file ${file.name} ("${err.message}"), please validate it with a JSON parser.`)
     }
   })
 }

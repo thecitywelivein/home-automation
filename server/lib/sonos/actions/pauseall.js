@@ -1,12 +1,17 @@
 'use strict'
+const path = require('path')
+const winston = require(path.resolve('server/logger'))
 var pausedPlayers = []
 
 function pauseAll (player, values) {
   console.log('pausing all players')
+  winston.info('pausing all players')
+
   // save state for resume
 
   if (values[0] && values[0] > 0) {
     console.log('in', values[0], 'minutes')
+    winston.info('in', values[0], 'minutes')
     setTimeout(function () {
       doPauseAll(player.system)
     }, values[0] * 1000 * 60)
@@ -18,9 +23,11 @@ function pauseAll (player, values) {
 
 function resumeAll (player, values) {
   console.log('resuming all players')
+  winston.info('resuming all players')
 
   if (values[0] && values[0] > 0) {
     console.log('in', values[0], 'minutes')
+    winston.info('in', values[0], 'minutes')
     setTimeout(function () {
       doResumeAll(player.system)
     }, values[0] * 1000 * 60)
@@ -35,10 +42,12 @@ function doPauseAll (system) {
   const promises = system.zones
     .filter(zone => {
       console.log(zone.coordinator.state)
+      winston.info(zone.coordinator.state)
       return zone.coordinator.state.playbackState === 'PLAYING'
     })
     .map(zone => {
       console.log(zone.uuid)
+      winston.info(zone.uuid)
       pausedPlayers.push(zone.uuid)
       const player = system.getPlayerByUUID(zone.uuid)
       return player.pause()

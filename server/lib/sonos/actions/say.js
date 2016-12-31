@@ -34,7 +34,6 @@ function say (player, values) {
 
   return tryDownloadTTS(text, language)
     .then((path) => {
-      console.log('say.js', path)
       return singlePlayerAnnouncement(player, `http://${system.localEndpoint}:${port}${path}`, announceVolume)
     })
 }
