@@ -1,3 +1,4 @@
+'use strict'
 const userKeys = require('./userKeys')
 const unirest = require('unirest')
 const moment = require('moment')

@@ -1,3 +1,4 @@
+'use strict'
 const userKeys = require('./userKeys')
 const logger = require('sonos-discovery/lib/helpers/logger')
 const path = require('path')
