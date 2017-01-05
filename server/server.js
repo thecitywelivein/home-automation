@@ -12,8 +12,11 @@ const settings = require('./sonosSettings.js')
 const discovery = new SonosSystem(settings)
 const api = new SonosHttpAPI(discovery, settings)
 
+// myQ
+const myQ = require('./lib/myQ/garage')
+
 // Wink
-const Lights = require('./lights.js')
+const Lights = require('./lib/wink/lights.js')
 
 app.use(bodyParser.json())
 
@@ -22,6 +25,19 @@ app.set('port', process.env.PORT || 3000)
 // Serve index if loaded in browser
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/../client/index.html'))
+})
+
+// myQ Calls
+app.get('/api/garagestatus', function (req, res) {
+  myQ.getDoorStatus(req, res)
+})
+
+app.get('/api/opengaragedoor', function (req, res) {
+  myQ.openGarageDoor(req, res)
+})
+
+app.get('/api/closegaragedoor', function (req, res) {
+  myQ.closeGarageDoor(req, res)
 })
 
 // IFTTT Calls
@@ -51,7 +67,7 @@ app.post('/api/github', function (req, res) {
     if (error) return logger.warn(error)
     logger.info(stdout)
   }
-  exec('git pull && npm install && rs', puts)
+  exec('git pull && npm install', puts)
 
   logger.info('Payload Received from Github')
   res.send('Thanks Github!')
